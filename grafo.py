@@ -11,6 +11,15 @@ class Grafo:
         else:
             self.mat_adj = mat_adj
 
+    def add_aresta(self, u, v, w = 1):
+        """Adiciona aresta de u a v com peso w"""
+        self.num_arestas += 1
+        if u < self.num_vert and v < self.num_vert:
+            self.lista_adj[u].append((v, w))
+            self.mat_adj[u][v] = w
+        else:
+            print("Aresta invalida!")
+
     def ler_arquivo(self, nome_arq):
         """Le arquivo de grafo no formato dimacs"""
         try:
@@ -40,9 +49,9 @@ class Grafo:
         busca em largura a partir de s"""
 
         desc = [0 for v in range(self.num_vert)]
-        Q = [s]
-        R = [s]
-        desc[s] = 1
+        Q = [s] #queue: fila de vertices para serem descobertos
+        R = [s] # reachable, lista de vertices descobertos
+        desc[s] = 1 # posição dos vertices descobertos
 
         while Q:
             u = Q.pop(0)
