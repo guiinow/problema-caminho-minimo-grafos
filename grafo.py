@@ -2,7 +2,7 @@ from queue import PriorityQueue
 
 
 class Grafo:
-    def __init__(self, num_vert=0, num_arestas=0, lista_adj=None, mat_adj=None):
+    def __init__(self, num_vert=0, num_arestas=0, lista_adj=None, mat_adj=None, lista_arestas=None):
         self.num_vert = num_vert
         self.num_arestas = num_arestas
         if lista_adj is None:
@@ -45,6 +45,7 @@ class Grafo:
                 v = int(str[1])  # Vertice destino
                 w = int(str[2])  # Peso da aresta
                 self.add_aresta(u, v, w)
+                self.lista_arestas.append((u, v, w))
         except IOError:
             print("Nao foi possivel encontrar ou ler o arquivo!")
 
@@ -68,32 +69,32 @@ class Grafo:
                         break
         return R
 
-    # def Dijkstra(self, s):
+    def Dijkstra(self, s):
 
-    #     dist = { v:float('inf') for v in range(self.num_vert)}
-    #     pred = {None for i in range(self.num_vert)}
+        dist = { v:float('inf') for v in range(self.num_vert)}
+        pred = {None for i in range(self.num_vert)}
 
-    #     dist[s] = 0
-    #     queue = self.num_vert
+        dist[s] = 0
+        queue = self.num_vert
 
-    #     a = PriorityQueue()
+        a = PriorityQueue()
 
-    #     a.put((0, s))
+        a.put((0, s))
 
-    #     while not a.empty():
-    #         (distancia, vertice_atual) = a.get()
-    #         self.vertices_visitados.append(vertice_atual)
+        while not a.empty():
+            (distancia, vertice_atual) = a.get()
+            self.vertices_visitados.append(vertice_atual)
 
-    #         for vizinho in range(self.num_vert):
-    #             if self.num_arestas[vertice_atual][vizinho] != -1:
-    #                 distancia = self.num_arestas[vertice_atual][vizinho]
-    #                 if vizinho not in self.vertices_visitados:
-    #                     custo = dist[vizinho]
-    #                     novo_custo = dist[vertice_atual] + distancia
-    #                     if novo_custo < custo:
-    #                         a.put((novo_custo, vizinho))
-    #                         dist[vizinho] = novo_custo
-    #     return dist
+            for vizinho in range(self.num_vert):
+                if self.num_arestas[vertice_atual][vizinho] != -1:
+                    distancia = self.num_arestas[vertice_atual][vizinho]
+                    if vizinho not in self.vertices_visitados:
+                        custo = dist[vizinho]
+                        novo_custo = dist[vertice_atual] + distancia
+                        if novo_custo < custo:
+                            a.put((novo_custo, vizinho))
+                            dist[vizinho] = novo_custo
+        return dist
 
     def Bellman_Ford(self, s):
 
@@ -102,12 +103,11 @@ class Grafo:
         dist[s] = 0
         for i in range(self.num_vert-1):
             trocou = False
-            for u in range(self.num_arestas):
-                for v in range(self.num_arestas):
-                    if dist[v] > dist[u] + 1:
-                        dist[v] = dist[u] + 1
-                        pred[v] = u
-                        trocou = True
+            for u,v,w in range(self.lista_arestas):
+                if dist[v] > dist[u] + peso:
+                    dist[v] = dist[u] + peso
+                    pred[v] = u
+                    trocou = True
             if trocou == False:
                 break
 
