@@ -77,20 +77,24 @@ class Grafo:
                         break
         return R
 
-    # def Dijkstra(self, s):
-    #     dist = [float('inf') for v in range(self.num_vert)]
-    #     pred = [None for v in range(self.num_vert)]
-    #     dist[s] = 0
-    #     Q = self.num_vert
-    #     while(Q != None):
-    #         u = (for i in range[dist[i]]:
-    #              u=None
-    #              min_dist=math.inf
-    #              for i in range Q:
-    #              if(dist[i] < min_dist):
-    #              u=min_dist=dist[i])
-    #         Q = Q - {u}
-    #         for v
+    def Dijkstra(self, s):
+        dist = [float('inf') for v in range(self.num_vert)]
+        pred = [None for v in range(self.num_vert)]
+        dist[s] = 0
+        Q = self.num_vert
+        while(Q != None):
+            u = (for i in range[dist[i]]:
+                 u=None
+                 min_dist=math.inf
+                 for i in range Q:
+                 if(dist[i] < min_dist):
+                 u=min_dist=dist[i])
+            Q = Q - {u}
+            for v, w in self.lista_arestas:
+                if dist[v] > dist[u] + w:
+                    dist[v] = dist[u] + w
+                    pred[v] = u
+        return dist, pred
 
     def Bellman_Ford(self, s=0):
         dist = [math.inf for v in range(self.num_vert)]
