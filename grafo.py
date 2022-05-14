@@ -100,13 +100,14 @@ class Grafo:
                     pred[v] = u
         return dist, pred
 
-    def Bellman_Ford(self, s=0):
+    def Bellman_Ford(self, s, t):
+        # self.num_vert = self.num_vert - t
         dist = [math.inf for v in range(self.num_vert)]
         pred = [None for v in range(self.num_vert)]
         dist[s] = 0
-        for i in range(self.num_vert-1):
+        for i in range(t):
             trocou = False
-            for u, v, w in self.lista_arestas:
+            for u, v, w in (self.lista_arestas):
                 if dist[v] > dist[u] + w:
                     dist[v] = dist[u] + w
                     pred[v] = u
