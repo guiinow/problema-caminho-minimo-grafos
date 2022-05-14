@@ -57,15 +57,33 @@ class Grafo:
         except IOError:
             print("Nao foi possivel encontrar ou ler o arquivo!")
 
-    def busca_largura(self, s, target):
-        """Retorna a ordem de descoberta dos vertices pela 
-        busca em largura a partir de s"""
+    # def busca_largura(self, s, target):
+    #     """Retorna a ordem de descoberta dos vertices pela
+    #     busca em largura a partir de s"""
 
+    #     desc = [0 for v in range(self.num_vert)]
+    #     Q = [s]  # queue: fila de vertices para serem descobertos
+    #     R = [s]  # reachable, lista de vertices descobertos
+    #     desc[s] = 1  # posição dos vertices descobertos
+
+    #     while Q:
+    #         u = Q.pop(0)
+    #         for (v, w) in self.lista_adj[u]:
+    #             if desc[v] == 0:
+    #                 Q.append(v)
+    #                 R.append(v)
+    #                 desc[v] = 1
+    #                 if(desc[v] == target):
+    #                     break
+    #     return R
+
+    def busca_largura(self, s):
+        """Retorna a ordem de descoberta dos vertices pela
+       busca em largura a partir de s"""
         desc = [0 for v in range(self.num_vert)]
-        Q = [s]  # queue: fila de vertices para serem descobertos
-        R = [s]  # reachable, lista de vertices descobertos
-        desc[s] = 1  # posição dos vertices descobertos
-
+        Q = [s]
+        R = [s]
+        desc[s] = 1
         while Q:
             u = Q.pop(0)
             for (v, w) in self.lista_adj[u]:
@@ -73,8 +91,6 @@ class Grafo:
                     Q.append(v)
                     R.append(v)
                     desc[v] = 1
-                    if(desc[v] == target):
-                        break
         return R
 
     def min(Q, dist):
@@ -105,7 +121,7 @@ class Grafo:
         dist = [math.inf for v in range(self.num_vert)]
         pred = [None for v in range(self.num_vert)]
         dist[s] = 0
-        for i in range(t):
+        for i in range(self.num_vert-1):
             trocou = False
             for u, v, w in (self.lista_arestas):
                 if dist[v] > dist[u] + w:
