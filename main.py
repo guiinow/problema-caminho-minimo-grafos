@@ -9,7 +9,7 @@ inicio = time.time()
 print(g.Bellman_Ford(0, 2))
 fim = time.time()
 BFtime = fim - inicio
-print('Tempo: %f', (BFtime))
+print('Tempo: %.5fs' % (BFtime))
 # inicio = time.time()
 # print(g.Dijkstra(0))
 # fim = time.time()
