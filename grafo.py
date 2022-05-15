@@ -103,29 +103,27 @@ class Grafo:
         return u
 
     def Dijkstra(self, s):
-        dist = [float('inf') for v in range(self.num_vert)]
+        dist = [math.inf for v in range(self.num_vert)]
         pred = [None for v in range(self.num_vert)]
 
         dist[s] = 0
-        Q = self.num_vert
+        Q = [v for v in range(self.num_vert)]
 
-        while(Q != 0):
+        while Q != []:
             u = None
-            min_dist = float('inf')
-            for i in range(Q):
+            min_dist = math.inf
+            for i in Q:
                 if dist[i] < min_dist:
                     u = i
                     min_dist = dist[i]
-            #u = min(Q, dist)
-            Q = Q - u
-            for u, v, w in self.lista_arestas:
+            Q.remove(u)
+            for v, w in self.lista_adj[u]:
                 if dist[v] > dist[u] + w:
                     dist[v] = dist[u] + w
                     pred[v] = u
         return dist, pred
 
     def Bellman_Ford(self, s, t):
-        # self.num_vert = self.num_vert - t
         dist = [math.inf for v in range(self.num_vert)]
         pred = [None for v in range(self.num_vert)]
         dist[s] = 0
