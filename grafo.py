@@ -105,12 +105,20 @@ class Grafo:
     def Dijkstra(self, s):
         dist = [float('inf') for v in range(self.num_vert)]
         pred = [None for v in range(self.num_vert)]
+
         dist[s] = 0
         Q = self.num_vert
-        while(Q != None):
-            u = min(Q, dist)
-            Q = Q - {u}
-            for v, w in self.lista_arestas:
+
+        while(Q != 0):
+            u = None
+            min_dist = float('inf')
+            for i in range(Q):
+                if dist[i] < min_dist:
+                    u = i
+                    min_dist = dist[i]
+            #u = min(Q, dist)
+            Q = Q - u
+            for u, v, w in self.lista_arestas:
                 if dist[v] > dist[u] + w:
                     dist[v] = dist[u] + w
                     pred[v] = u
