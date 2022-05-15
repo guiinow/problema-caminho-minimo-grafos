@@ -1,8 +1,5 @@
-from cmath import inf
-from dis import dis
 import math
 from queue import PriorityQueue
-from re import I
 
 
 class Grafo:
@@ -92,15 +89,6 @@ class Grafo:
                     R.append(v)
                     desc[v] = 1
         return R
-
-    def min(Q, dist):
-        u = None
-        min_dist = math.inf
-        for i in (Q):
-            if(dist[i] < min_dist):
-                u = i
-                min_dist = dist[i]
-        return u
 
     def Dijkstra(self, s):
         dist = [math.inf for v in range(self.num_vert)]
