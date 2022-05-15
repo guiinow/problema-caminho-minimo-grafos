@@ -3,33 +3,37 @@ import time
 
 g = grafo.Grafo()
 
-arquivo = input('Digite o arquivo de texto:')
-g.ler_arquivo(arquivo)
+# arquivo = input('Digite o arquivo de texto:')
+# g.ler_arquivo(arquivo)
 
-# g.ler_arquivo('toy.txt')
+g.ler_arquivo('toy.txt')
+print("peso")
+g.peso
+
+# if(g.peso<0):
+#     print('')
+
+# fazer um if para testar os pesos do grafo, se houverem grafos com peso negativo: usar Bellman_Ford, caso contrário ultilizar Dijkstra
+
+print("-----------")
 
 print('Bellman Ford:')
-inicio = time.time()
-print(g.Bellman_Ford(0, 2))
-fim = time.time()
-BFtime = fim - inicio
+BFinicio = time.time()
+print(g.Bellman_Ford(0, 3))
+BFfim = time.time()
+BFtime = BFfim - BFinicio
 print('BFTempo: %.5fs' % (BFtime))
 
+print("-----------")
+
 print('Dijkstra')
-inicio = time.time()
-print(g.Dijkstra(0))
-fim = time.time()
-Dtime = fim-inicio
+Dinicio = time.time()
+g.Dijkstra(0, 3)
+Dfim = time.time()
+Dtime = Dfim-Dinicio
 print('DTempo: %.5fs' % (Dtime))
-# t = 3
 
-# caminho = [0 for v in range(t)]
+print("-----------")
 
-# for i in range(t):
-#     caminho[i] = (g.busca_largura(0)[i])
 
-# print(caminho)
-
-# print('total: ')
-# print(g.busca_largura(0))
-# print(g.busca_largura(0)[-2])
+print(g.busca_largura(0))

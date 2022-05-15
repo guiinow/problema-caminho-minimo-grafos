@@ -1,9 +1,7 @@
 import math
 from queue import PriorityQueue
-
-
 class Grafo:
-    def __init__(self, num_vert=0, num_arestas=0, lista_adj=None, mat_adj=None, lista_arestas=None):
+    def __init__(self, num_vert=0, num_arestas=0, lista_adj=None, mat_adj=None, lista_arestas=None, lista_sem_peso=None):
         self.num_vert = num_vert
         self.num_arestas = num_arestas
         if lista_adj is None:
@@ -19,6 +17,10 @@ class Grafo:
             self.lista_arestas = [[] for i in range(num_vert)]
         else:
             self.lista_arestas = lista_arestas
+        # if lista_sem_peso is None:
+        #     self.lista_sem_peso = [[] for i in range(num_vert)]
+        # else:
+        #     self.lista_sem_peso = lista_arestas
 
     def add_aresta(self, u, v, w=1):
         """Adiciona aresta de u a v com peso w"""
@@ -54,50 +56,32 @@ class Grafo:
         except IOError:
             print("Nao foi possivel encontrar ou ler o arquivo!")
 
-    # def busca_largura(self, s, target):
-    #     """Retorna a ordem de descoberta dos vertices pela
-    #     busca em largura a partir de s"""
-
-    #     desc = [0 for v in range(self.num_vert)]
-    #     Q = [s]  # queue: fila de vertices para serem descobertos
-    #     R = [s]  # reachable, lista de vertices descobertos
-    #     desc[s] = 1  # posição dos vertices descobertos
-
-    #     while Q:
-    #         u = Q.pop(0)
-    #         for (v, w) in self.lista_adj[u]:
-    #             if desc[v] == 0:
-    #                 Q.append(v)
-    #                 R.append(v)
-    #                 desc[v] = 1
-    #                 if(desc[v] == target):
-    #                     break
-    #     return R
-
     def busca_largura(self, s):
         """Retorna a ordem de descoberta dos vertices pela
-       busca em largura a partir de s"""
+        busca em largura a partir de s"""
+
         desc = [0 for v in range(self.num_vert)]
-        Q = [s]
-        R = [s]
-        desc[s] = 1
+        Q = [s]  # queue: fila de vertices para serem descobertos
+        R = [s]  # reachable, lista de vertices descobertos
+        desc[s] = 1  # posição dos vertices descobertos
+
         while Q:
             u = Q.pop(0)
-            for (v, w) in self.lista_adj[u]:
+            for v, w in self.lista_adj[u]:
                 if desc[v] == 0:
                     Q.append(v)
                     R.append(v)
                     desc[v] = 1
         return R
 
-    def Dijkstra(self, s):
+    def Dijkstra(self, s, t):
         dist = [math.inf for v in range(self.num_vert)]
         pred = [None for v in range(self.num_vert)]
 
         dist[s] = 0
         Q = [v for v in range(self.num_vert)]
 
-        while Q != []:
+        while Q:
             u = None
             min_dist = math.inf
             for i in Q:
@@ -109,7 +93,23 @@ class Grafo:
                 if dist[v] > dist[u] + w:
                     dist[v] = dist[u] + w
                     pred[v] = u
-        return dist, pred
+
+        caminho = []
+        custo = 0
+        
+        i = math.inf
+        caminho.append(t)
+        custo = dist[t]
+
+        while i != s:
+            i = pred[t]
+            t = i
+            caminho.append(i)
+
+        caminho.reverse()    
+
+        print('Custo: %d'  %custo)
+        print('Caminho: ', caminho)
 
     def Bellman_Ford(self, s, t):
         dist = [math.inf for v in range(self.num_vert)]
@@ -124,4 +124,26 @@ class Grafo:
                     trocou = True
             if trocou == False:
                 break
-        return dist, pred
+        
+        caminho = []
+        custo = 0
+        
+        i = math.inf
+        caminho.append(t)
+        custo = dist[t]
+
+        while i != s:
+            i = pred[t]
+            t = i
+            caminho.append(i)
+
+        caminho.reverse()    
+
+        print('Custo: ', custo)
+        print('Caminho: ', caminho)
+    
+    def peso(self):
+        print("Dentro da função peso")
+        w = self.lista_arestas(w)
+        print(w)
+        # return w
