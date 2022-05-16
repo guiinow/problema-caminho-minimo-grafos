@@ -69,24 +69,6 @@ class Grafo:
         except IOError:
             print("Nao foi possivel encontrar ou ler o arquivo!")
 
-    # def busca_largura(self, s):
-    #     """Retorna a ordem de descoberta dos vertices pela
-    #     busca em largura a partir de s"""
-
-    #     desc = [0 for v in range(self.num_vert)]
-    #     Q = [s]  # queue: fila de vertices para serem descobertos
-    #     R = [s]  # reachable, lista de vertices descobertos
-    #     desc[s] = 1  # posição dos vertices descobertos
-
-    #     while Q:
-    #         u = Q.pop(0)
-    #         for v, w in self.lista_adj[u]:
-    #             if desc[v] == 0:
-    #                 Q.append(v)
-    #                 R.append(v)
-    #                 desc[v] = 1
-    #     return R
-
     def busca_largura_caminhos(self, s, t):
         dist = [math.inf for v in range(self.num_vert)]
         pred = [None for v in range(self.num_vert)]
@@ -104,7 +86,7 @@ class Grafo:
 
         caminho = []
         caminho.append(t)
-        # custo = dist[t]
+        custo = dist[t]
         aux = t
 
         while aux != s:
@@ -113,7 +95,7 @@ class Grafo:
 
         caminho.reverse()
 
-        # print('Custo:', custo)
+        print('Custo:', custo)
         print('Caminho:', caminho)
 
     def Dijkstra(self, s, t):
@@ -150,8 +132,8 @@ class Grafo:
 
         caminho.reverse()
 
-        print('Custo: %d' % custo)
-        print('Caminho: ', caminho)
+        print('Custo:', custo)
+        print('Caminho:', caminho)
 
     def Bellman_Ford(self, s, t):
         dist = [math.inf for v in range(self.num_vert)]
@@ -168,7 +150,6 @@ class Grafo:
                 break
 
         caminho = []
-        custo = 0
 
         i = math.inf
         caminho.append(t)
@@ -179,7 +160,6 @@ class Grafo:
             t = i
             caminho.append(i)
 
-        caminho.pop(-1)
         caminho.reverse()
 
         print('Custo: ', custo)
