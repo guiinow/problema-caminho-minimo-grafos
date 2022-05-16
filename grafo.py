@@ -57,14 +57,17 @@ class Grafo:
                 w = int(str[2])  # Peso da aresta
                 self.add_aresta(u, v, w)
                 self.lista_arestas.append((u, v, w))
-                selecao = 0
+                # se seleção = 0, usa-se largura
+                # se seleção = 1, usa-se Dijkastra
+                # se seleço = 2, usa-se Bellman-Ford
+                selecao = None
                 if w != 1:
                     if w < 0:
-                        selecao = 3
-                    else:
                         selecao = 2
+                    else:
+                        selecao = 1
                 else:
-                    selecao = 1
+                    selecao = 0
             return selecao
         except IOError:
             print("Nao foi possivel encontrar ou ler o arquivo!")
@@ -119,7 +122,6 @@ class Grafo:
                     pred[v] = u
 
         caminho = []
-        custo = 0
 
         i = math.inf
         caminho.append(t)
@@ -150,7 +152,7 @@ class Grafo:
                 break
 
         caminho = []
-
+        custo = 0
         i = math.inf
         caminho.append(t)
         custo = dist[t]
