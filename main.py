@@ -7,8 +7,13 @@ g = grafo.Grafo()
 # g.ler_arquivo(arquivo)
 
 g.ler_arquivo('toy.txt')
-print("peso")
-g.peso
+
+if(g.ler_arquivo == 1):
+    print('Busca Largura')
+elif(g.ler_arquivo == 2):
+    print('Dijkstra')
+elif(g.ler_arquivo == 3):
+    print('Bellman Ford')
 
 # if(g.peso<0):
 #     print('')
@@ -35,5 +40,9 @@ print('DTempo: %.5fs' % (Dtime))
 
 print("-----------")
 
-
-print(g.busca_largura(0))
+print('Busca Largura')
+BLinicio = time.time()
+print(g.busca_largura_caminhos(0, 3))
+BLfim = time.time()
+BLtime = BLfim-BLinicio
+print('BLTempo: %.5fs' % (BLtime))
