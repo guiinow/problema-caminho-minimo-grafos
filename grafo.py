@@ -17,14 +17,9 @@ class Grafo:
         else:
             self.mat_adj = mat_adj
         if lista_arestas is None:
-            self.lista_arestas = [[] for i in range(num_vert)]
-            # receber somente []
+            self.lista_arestas = []
         else:
             self.lista_arestas = lista_arestas
-        # if lista_sem_peso is None:
-        #     self.lista_sem_peso = [[] for i in range(num_vert)]
-        # else:
-        #     self.lista_sem_peso = lista_arestas
 
     def add_aresta(self, u, v, w=1):
         """Adiciona aresta de u a v com peso w"""
